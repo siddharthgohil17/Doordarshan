@@ -1,46 +1,60 @@
 import {
-   LOAD_PROFILE,
-   LOGIN_FAIL,
-   LOGIN_REQUEST,
-   LOGIN_SUCCESS,
-} from '../actionType'
+    LOAD_PROFILE,
+    LOGIN_FAIL,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOG_OUT,
+} from '../actionType';
 
-const intialState = {
-    accessToken: null,
-    user: null,
-    loading: null
-}
+const initialState = {
+    accessToken: sessionStorage.getItem('ytc-access-token') ? sessionStorage.getItem('ytc-access-token') : null,
+    user: sessionStorage.getItem('ytc-user') ? JSON.parse(sessionStorage.getItem('ytc-user')) : null,
+    loading: false,
+};
 
-export const authReducer = (prevState = intialState, action) => {
-  const {type,payload}=action
+export const authReducer = (prevState = initialState, action) => {
+    const { type, payload } = action;
 
-     switch(type){
+    // console.log('Action:', type);
+    // console.log('Payload:', payload);
+    // console.log('Previous State:', prevState);
+
+    switch (type) {
         case LOGIN_REQUEST:
-        return {
-            ...prevState,
-            loading:true,
-        }
+            return {
+                ...prevState,
+                loading: true,
+            };
         case LOGIN_SUCCESS:
-            return{
+            return {
                 ...prevState,
-                accessToken:payload,
-                loading:false,
+                accessToken: payload,
+                loading: false,
+            };
+        case LOGIN_FAIL:
+            return {
+                ...prevState,
+                accessToken: null,
+                loading: false,
+                error: payload,
+            };
+        case LOAD_PROFILE:
+            const newState = {
+                ...prevState,
+                user: payload,
+            };
+            // console.log('Updated State:', newState);
+            return newState;
 
-            }
-          case LOGIN_FAIL:
-            return{
-                ...prevState,
-                accessToken:null,
-                loading:false,
-                error:payload,
-            }
-            case LOAD_PROFILE:
+            case LOG_OUT:
                 return{
                     ...prevState,
-                    user:payload,
-                }
-          default:
-            return prevState
+                    accessToken:null,
+                    user:null,
 
-     }
-}
+                }
+       
+        default:
+            return prevState;
+    }
+};

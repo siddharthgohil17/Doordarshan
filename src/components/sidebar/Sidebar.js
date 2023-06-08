@@ -9,8 +9,15 @@ import {
     MdSentimentDissatisfied,
  }from 'react-icons/md'
  import "./Sidebar.scss"
+import { useDispatch } from "react-redux"
+import { log_out } from "../../redux/actions/auth.action"
 
 const Sidebar=({sidebar,handlebtn})=>{
+
+   const dispatch=useDispatch()
+    const logOutHandler=()=>{
+       dispatch(log_out())
+    }
   
     return (
       
@@ -42,9 +49,9 @@ const Sidebar=({sidebar,handlebtn})=>{
         </li>
 
         <hr />
-        <li>
+        <li onClick={logOutHandler}>
             <MdExitToApp  size={23}/>
-             <span>Sign out</span>
+             <span>Log Out</span>
         </li>
 
         <hr />
