@@ -8,6 +8,7 @@ import LoginScreen from "./Screen/Loginscreen/Loginscreen";
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import WatchScreen from './Screen/WatchScreen/WatchScreen';
 
 const Layout = ({ children }) => {
   const [opened, setOpen] = useState(false);
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/" element={<Layout><HomeScreen /></Layout>} />
         <Route path="/auth" element={<Layout><LoginScreen /></Layout>} />
         <Route path="/search" element={<Layout><h1>Search me</h1></Layout>} />
+        <Route path="/watch/:id" element={<Layout><WatchScreen/></Layout>} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
   
