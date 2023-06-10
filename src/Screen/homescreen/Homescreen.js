@@ -7,7 +7,7 @@ import { getPopularVideos, getVideosByCategory } from "../../redux/actions/video
 import InfiniteScroll  from "react-infinite-scroll-component"
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import './_base.scss'
+
 import SkeletonVideo from "../../components/skeletons/SkeletonVideo"
 
 
