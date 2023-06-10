@@ -42,14 +42,13 @@
          background-color: $border-color;
       }
    }
-   &.open {
-    transform: translateX(0);
-  
-
- }
 
    hr {
       background-color: $border-color;
+   }
+
+   &.open {
+      transform: translateX(0);
    }
 }
 

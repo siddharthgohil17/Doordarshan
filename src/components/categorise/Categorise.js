@@ -1,5 +1,7 @@
 import React,{useState} from "react"
 import "./Categorise.scss"
+import { useDispatch } from "react-redux"
+import { getVideosByCategory,getPopularVideos } from "../../redux/actions/videos.action"
 
 const keywords = [
     'All',
@@ -25,9 +27,16 @@ const Categorise=()=>{
 
     const [activeElement,SetElm]=useState('All')
 
+    const dispatch=useDispatch();
  const handleclick=(value)=>{
-    console.log(value)
+    // console.log(value)
        SetElm(value);
+       if(value==='All')
+       { dispatch(getPopularVideos())}
+       else{
+        dispatch(getVideosByCategory(value))
+       }
+       
 }
 
     return (

@@ -1,27 +1,78 @@
-import React from "react"
-import "./Video.scss"
-import { AiFillEye } from "react-icons/ai"
+import React, { useEffect, useState } from "react";
+import "./Video.scss";
+import { AiFillEye } from "react-icons/ai";
+import request from "../../api"; // Corrected import statement
+import moment from 'moment';
+import numeral from "numeral";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-const Video=()=>{
-    return (
-        <div className="video">
-       <div className="video__top">
-        <img src="	https://i.ytimg.com/vi/1QQrcTik1qo/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLAYgfNxskt_oAEwhLAes4oSolkSRgs" alt="" />
-        <span className='video__top__duration'>05:34</span>
-       </div>
-       <div className="video__title">
-    
-      <span>dhoni hit 6 six #mahimarrahahai jksanxojksab</span>
-       </div>
-       <div className="video__details">
-        <span><AiFillEye /> 5m Views •</span>
-        <span>6 day ago</span>
-       </div>
-       <div className="video__channel">
-        <img src="https://yt3.ggpht.com/ytc/AGIKgqM4MHT8GqYNCotHLhIPasr9pzvrhKKBTKBG7944=s88-c-k-c0x00ffffff-no-rj"  alt="" />
-        <span>ranibow hat</span>
-       </div>
-        </div>
-    )
-}
+const Video = ({ video }) => {
+  const {
+    id,
+    snippet: {
+      channelId,
+      channelTitle,
+      title,
+      publishedAt,
+      thumbnails: { medium },
+    },
+  } = video;
+
+  const [views, setViews] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [channelIcon, setChannelIcon] = useState(null);
+
+  const seconds = moment.duration(duration).asSeconds();
+  const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
+  const _videoId=id?.videoId||id
+
+  useEffect(() => {
+    const getVideoDetails = async () => {
+      const { data: { items } } = await request('/videos', {
+        params: {
+          part: 'contentDetails,statistics',
+          id: _videoId,
+        },
+      });
+      setDuration(items[0].contentDetails.duration);
+      setViews(items[0].statistics.viewCount);
+    };
+    getVideoDetails();
+  }, [_videoId]);
+
+  useEffect(() => {
+    const getChannelIcon = async () => {
+      const { data: { items } } = await request('/channels', {
+        params: {
+          part: 'snippet',
+          id: channelId,
+        },
+      });
+      setChannelIcon(items[0].snippet.thumbnails.default);
+    };
+    getChannelIcon();
+  }, [channelId]);
+
+  return (
+    <div className="video">
+      <div className="video__top">
+        <LazyLoadImage  src={medium.url} alt="" effect="blur" />
+        <span className="video__top__duration">{_duration}</span>
+      </div>
+      <div className="video__title">
+        <span>{title}</span>
+      </div>
+      <div className="video__details">
+        <span> <AiFillEye/> {numeral(views).format('0.a')} views •</span>
+        <span>{moment(publishedAt).fromNow()}</span>
+      </div>
+      <div className="video__channel">
+        <LazyLoadImage src={channelIcon?.url} alt="" effect="blur"/>
+        <span>{channelTitle}</span>
+      </div>
+    </div>
+  );
+};
+
 export default Video;

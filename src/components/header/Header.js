@@ -4,12 +4,13 @@ import { FaBars } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdNotifications, MdApps } from 'react-icons/md'
 
-const Header = (props) => {
+const Header = ({handlesidebar}) => {
    
   
     return (
         <div className='header'>
-            <FaBars onClick={()=>props.handlesidebar()}
+            <FaBars 
+            onClick={()=>handlesidebar()}
                 className='header__menu'
                 size={26}
                  />
@@ -25,7 +26,6 @@ const Header = (props) => {
                 <input
                     type='text'
                     placeholder='Search'
-
                 />
                 <button type='submit'>
                     <AiOutlineSearch size={22} />
