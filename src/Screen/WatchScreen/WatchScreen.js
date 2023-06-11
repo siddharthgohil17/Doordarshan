@@ -2,6 +2,8 @@ import React from "react";
 import './watchscreen.scss'
 import { Row,Col} from "react-bootstrap";
 import VideoMetaData from "../../components/videoMetaData/VideoMetaData";
+import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
+import Comments from "../../components/comments/Comments";
 
 
 
@@ -16,20 +18,19 @@ const WatchScreen=()=>{
                   title='My video'
                   allowFullScreen
                   width='100%'
-                  height='100%'></iframe>
-                  
-                 
+                  height='100%'></iframe>         
         </div>
         <VideoMetaData />
+        <Comments/>
      </Col>
 
     <Col lg={4}>
-
-    </Col>
-
-
-
-       
+{
+   [...Array(10)].map(()=>(
+      
+   <VideoHorizontal/>))
+}
+    </Col> 
      </Row>
     )
 }

@@ -32,14 +32,14 @@ const HomeScreen=()=>{
         <Container>
             <Categorise />
         
-            <InfiniteScroll
+            {/* <InfiniteScroll
             dataLength={videos.length}
             next={fetchData}
             hasMore={true}
             loader={
                 <div className="spinner-border text-danger d-block mx-auto"> </div>
-            }
-            className="row">
+            } */}
+            <div className="row">
             
          {!loading
                ? videos.map(video => (
@@ -53,7 +53,8 @@ const HomeScreen=()=>{
                     </Col>
                  ))}
          
-           </InfiniteScroll>
+         </div>
+           {/* </InfiniteScroll> */}
          
         </Container>
     )

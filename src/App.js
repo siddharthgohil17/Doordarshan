@@ -47,7 +47,7 @@ const App = () => {
         <Route path="/auth" element={<Layout><LoginScreen /></Layout>} />
         <Route path="/search" element={<Layout><h1>Search me</h1></Layout>} />
         <Route path="/watch/:id" element={<Layout><WatchScreen/></Layout>} />
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
   
   );
