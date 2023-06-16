@@ -5,6 +5,7 @@ import request from "../../api"; // Corrected import statement
 import moment from 'moment';
 import numeral from "numeral";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {useNavigate} from 'react-router-dom'
 
 const Video = ({ video }) => {
   const {
@@ -27,6 +28,11 @@ const Video = ({ video }) => {
 
   const _videoId=id?.videoId||id
 
+  const navigate = useNavigate();
+  const handleVideoClick = () => {
+    navigate(`/watch/${_videoId}`);
+  };
+  
   useEffect(() => {
     const getVideoDetails = async () => {
       const { data: { items } } = await request('/videos', {
@@ -40,6 +46,7 @@ const Video = ({ video }) => {
     };
     getVideoDetails();
   }, [_videoId]);
+  // API when the component mounts or when the _videoId dependency changes. 
 
   useEffect(() => {
     const getChannelIcon = async () => {
@@ -54,8 +61,10 @@ const Video = ({ video }) => {
     getChannelIcon();
   }, [channelId]);
 
+ 
+
   return (
-    <div className="video">
+    <div className="video"  onClick={handleVideoClick}>
       <div className="video__top">
         <LazyLoadImage  src={medium.url} alt="" effect="blur" />
         <span className="video__top__duration">{_duration}</span>

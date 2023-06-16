@@ -49,7 +49,7 @@ const App = () => {
         <Route path="/watch/:id" element={<Layout><WatchScreen/></Layout>} />
         {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
-  
+    
   );
 }
 

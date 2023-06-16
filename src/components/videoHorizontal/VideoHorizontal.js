@@ -33,7 +33,7 @@ const VideoHorizontal = () => {
                 {/* <LazyLoadImage src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png' alt="" effect="blur"
                    
                 /> */}
-                <p>Backbencher coder</p>
+                <p>Backbencher</p>
                     
                 </div>
             </Col>

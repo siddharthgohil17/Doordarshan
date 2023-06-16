@@ -1,5 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase";
+
+
 import {
   LOAD_PROFILE,
   LOGIN_FAIL,
@@ -7,6 +9,7 @@ import {
   LOGIN_SUCCESS,
   LOG_OUT,
 } from '../actionType';
+
 
 export const login = () => async (dispatch) => {
   try {
@@ -16,6 +19,9 @@ export const login = () => async (dispatch) => {
 
     const authProvider = new GoogleAuthProvider();
     authProvider.addScope("https://www.googleapis.com/auth/youtube.force-ssl")
+    authProvider.addScope("https://www.googleapis.com/auth/youtube.readonly");
+
+
     const authInstance = getAuth();
 
     try {
@@ -30,6 +36,8 @@ export const login = () => async (dispatch) => {
 
       sessionStorage.setItem('ytc-access-token', accessToken);
       sessionStorage.setItem('ytc-user', JSON.stringify(profile));
+      // localStorage.setItem('ytc-access-token', accessToken); 
+      // localStorage.setItem('ytc-user', JSON.stringify(profile)); 
 
       dispatch({
         type: LOGIN_SUCCESS,
@@ -66,4 +74,6 @@ export const log_out = () => async (dispatch) => {
   });
   sessionStorage.removeItem('ytc-access-token');
   sessionStorage.removeItem('ytc-user');
+  // localStorage.removeItem('ytc-access-token'); // Remove from local storage
+  // localStorage.removeItem('ytc-user'); 
 };

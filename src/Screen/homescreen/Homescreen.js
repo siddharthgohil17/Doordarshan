@@ -29,7 +29,7 @@ const HomeScreen=()=>{
 
    
     return (
-        <Container>
+        <Container   >
             <Categorise />
         
             {/* <InfiniteScroll
