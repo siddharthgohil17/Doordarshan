@@ -2,8 +2,9 @@ import { legacy_createStore as createStore, applyMiddleware,combineReducers } fr
 import {composeWithDevTools} from "redux-devtools-extension"
 import thunk from "redux-thunk";
 import { authReducer } from "./reducers/auth.reducer"; 
-import { homeVideosReducer,selcetedVideoReducer} from "./reducers/videos.reducer";
+import { homeVideosReducer,selcetedVideoReducer,relatedToVideoReducer,searchVideoReducer} from "./reducers/videos.reducer";
 import { ChannelDetailsReducer} from "./reducers/channel.reducer";
+import {commentListReducer} from "./reducers/comment.reducer";
 
 
 
@@ -14,7 +15,12 @@ auth:authReducer,
 homeVideos:homeVideosReducer,
 selectedVideo:selcetedVideoReducer,
 channelDetails:ChannelDetailsReducer,
+commentList:commentListReducer,
+relatedVideos:relatedToVideoReducer,
+searchVideo:searchVideoReducer,
 })
+
+
 
 const store=createStore(
     rootReducer,

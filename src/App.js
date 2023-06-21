@@ -9,6 +9,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import WatchScreen from './Screen/WatchScreen/WatchScreen';
+import SearchScreen from './Screen/searchScreen';
+import SubScription from './Screen/SubScriptionScreen/subScription';
 
 const Layout = ({ children }) => {
   const [opened, setOpen] = useState(false);
@@ -20,7 +22,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Header handlesidebar={handle} />
-      <div className='app_container '>
+      <div className='app_container'>
         <Sidebar sidebar={opened} handlebtn={handle} />
         <Container fluid className="app_main ">
           {children}
@@ -42,12 +44,12 @@ const App = () => {
 
   return (
     
-      <Routes>
+      <Routes >
         <Route path="/" element={<Layout><HomeScreen /></Layout>} />
         <Route path="/auth" element={<Layout><LoginScreen /></Layout>} />
-        <Route path="/search" element={<Layout><h1>Search me</h1></Layout>} />
+        <Route path="/search/:query" element={<Layout><SearchScreen /></Layout>} />
         <Route path="/watch/:id" element={<Layout><WatchScreen/></Layout>} />
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="/feed/subscriptions" element={<Layout><SubScription/></Layout>} />
       </Routes>
     
   );

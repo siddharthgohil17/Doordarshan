@@ -3,20 +3,26 @@ import moment from "moment";
 import './Comment.scss'
 
 
-const Comment=()=>{
+const Comment=({comment})=>{
+    const {
+        authorDisplayName,
+        authorProfileImageUrl,
+        publishedAt,
+        textDisplay,
+     } = comment
 
     return(
         <div className="comment p-2 d-flex">
                   <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            src={authorProfileImageUrl}
             alt=''
             className="m-3 rounded-circle"
         /> 
          <div className='comment__body'>
             <p className='mb-1 comment__header'>
-              sid gohil • {moment('2020-05-08').fromNow()}
+              { authorDisplayName} • {moment( publishedAt).fromNow()}
             </p>
-            <p className="mb-0">Nice video dude</p>
+            <p className="mb-0">{ textDisplay}</p>
          </div>
         </div>
     )

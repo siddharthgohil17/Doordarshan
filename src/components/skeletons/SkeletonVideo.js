@@ -6,6 +6,14 @@ const SkeletonVideo=()=>{
     return(
         <div style={{width:'100%',margin:'1rem 0'}}>
         <SkeletonTheme color='#343a40'  highlightColor='#3c4147'>
+        <style>
+    {`
+      .react-loading-skeleton {
+        background-color: '#3c4147;
+        border-color: #343a40;
+      }
+    `}
+    </style>
           <Skeleton  height={180} />
             <div>
                 <Skeleton style={{margin:'0.5rem'}} circle height={40} width={40}/>

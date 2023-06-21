@@ -7,6 +7,8 @@ import { getPopularVideos, getVideosByCategory } from "../../redux/actions/video
 import InfiniteScroll  from "react-infinite-scroll-component"
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import './home.scss'
+
 
 import SkeletonVideo from "../../components/skeletons/SkeletonVideo"
 
@@ -29,18 +31,18 @@ const HomeScreen=()=>{
 
    
     return (
-        <Container   >
+        <Container>
             <Categorise />
         
-            {/* <InfiniteScroll
+        <InfiniteScroll
             dataLength={videos.length}
             next={fetchData}
             hasMore={true}
             loader={
                 <div className="spinner-border text-danger d-block mx-auto"> </div>
-            } */}
+            }
+          >
             <div className="row">
-            
          {!loading
                ? videos.map(video => (
                     <Col lg={3} md={4}>
@@ -53,10 +55,10 @@ const HomeScreen=()=>{
                     </Col>
                  ))}
          
-         </div>
-           {/* </InfiniteScroll> */}
+                 </div>
+           </InfiniteScroll>
          
-        </Container>
+           </Container>
     )
 }
 export default HomeScreen;

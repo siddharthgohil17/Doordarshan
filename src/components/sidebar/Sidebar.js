@@ -11,6 +11,8 @@ import {
  import "./Sidebar.scss"
 import { useDispatch } from "react-redux"
 import { log_out } from "../../redux/actions/auth.action"
+import { Link } from "react-router-dom"
+
 
 const Sidebar=({sidebar,handlebtn})=>{
 
@@ -18,22 +20,28 @@ const Sidebar=({sidebar,handlebtn})=>{
     const logOutHandler=()=>{
        dispatch(log_out())
     }
+    
   
     return (
       
       <nav className={sidebar?"sidebar open":"sidebar"}  onClick={()=>handlebtn(false)}>
+          <Link to='/'  style={{textDecoration: 'none'}}>
          <li>
             <MdHome  size={23}/>
              <span>Home</span>
         </li>
+        </Link>
         <li>
             <MdThumbUp  size={23}/>
              <span>Liked Videos</span>
         </li>
+
+        <Link to='/feed/subscriptions' style={{textDecoration: 'none'}}>
         <li>
             <MdSubscriptions  size={23}/>
              <span>Subscriptions</span>
         </li>
+        </Link>
     
         <li>
             <MdHistory  size={23}/>
@@ -53,6 +61,7 @@ const Sidebar=({sidebar,handlebtn})=>{
             <MdExitToApp  size={23}/>
              <span>Log Out</span>
         </li>
+      
 
         <hr />
      

@@ -1,4 +1,9 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from '../actionType';
+import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, 
+     RELATED_VIDEO_FAIL,  RELATED_VIDEO_REQUEST,RELATED_VIDEO_SUCCESS,
+     SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST,SELECTED_VIDEO_SUCCESS,
+     SEARCH_VIDEO_FAIL, SEARCH_VIDEO_REQUEST,SEARCH_VIDEO_SUCCESS 
+    
+    } from '../actionType';
 import request from '../../api'
 
 
@@ -13,7 +18,7 @@ export const getPopularVideos=()=>async (dispatch,getState) =>{
                part:'snippet,contentDetails,statistics',
                chart:'mostPopular',
                regionCode:'IN',
-               maxResults:1,
+               maxResults:10,
                pageToken:getState().homeVideos.nextPageToken,
             },
         })
@@ -45,6 +50,7 @@ export const getPopularVideos=()=>async (dispatch,getState) =>{
 
 
 export const getVideosByCategory=(keyword)=>async (dispatch,getState) =>{
+
     try {
         dispatch({
             type:HOME_VIDEOS_REQUEST,
@@ -52,7 +58,7 @@ export const getVideosByCategory=(keyword)=>async (dispatch,getState) =>{
       const {data}=  await  request('/search',{
             params:{
                part:'snippet',
-               maxResults:1,
+               maxResults:10,
                pageToken:getState().homeVideos.nextPageToken,
                q:keyword,
                type:"video"
@@ -111,4 +117,80 @@ export const getVideoById=(id)=>async (dispatch)=>{
             payload:error.message,
         })
     }
+}
+
+
+
+export const getRelatedVideos=(id)=>async (dispatch) =>{
+    try {
+        dispatch({
+            type:RELATED_VIDEO_REQUEST,
+        })
+      const {data}=  await  request('/search',{
+            params:{
+                part:"snippet",
+                relatedToVideoId:id,
+                maxResults:10,
+                type:'video'
+
+            },
+        })
+
+        dispatch({
+            type:RELATED_VIDEO_SUCCESS,
+            payload:data.items,
+        
+        })
+
+        //  console.log(data);
+        
+    } catch (error) {
+      
+        console.log(error.response.data.message)
+        dispatch({
+            type:RELATED_VIDEO_FAIL,
+            payloda:error.response.data.message
+        })
+        
+    }
+
+}
+
+
+
+export const getVideosBySearch=(keyword)=>async (dispatch) =>{
+    console.log(keyword)
+    try {
+        dispatch({
+            type:SEARCH_VIDEO_REQUEST,
+        })
+      const {data}=  await  request('/search',{
+            params:{
+               part:'snippet',
+               maxResults:10,
+               q:keyword,
+               type:"video"
+            },
+        })
+        
+
+        dispatch({
+            type:SEARCH_VIDEO_SUCCESS,
+            payload:data.items,
+    
+           
+        })
+
+        //  console.log(data);
+        
+    } catch (error) {
+      
+        console.log(error.message)
+        dispatch({
+            type:SEARCH_VIDEO_FAIL,
+            payloda:error.message
+        })
+        
+    }
+
 }

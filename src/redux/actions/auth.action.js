@@ -34,10 +34,10 @@ export const login = () => async (dispatch) => {
         photoURL: res.user.photoURL,
       };
 
-      sessionStorage.setItem('ytc-access-token', accessToken);
-      sessionStorage.setItem('ytc-user', JSON.stringify(profile));
-      // localStorage.setItem('ytc-access-token', accessToken); 
-      // localStorage.setItem('ytc-user', JSON.stringify(profile)); 
+      // sessionStorage.setItem('ytc-access-token', accessToken);
+      // sessionStorage.setItem('ytc-user', JSON.stringify(profile));
+      localStorage.setItem('ytc-access-token', accessToken); 
+      localStorage.setItem('ytc-user', JSON.stringify(profile)); 
 
       dispatch({
         type: LOGIN_SUCCESS,
@@ -72,8 +72,8 @@ export const log_out = () => async (dispatch) => {
   dispatch({
     type: LOG_OUT
   });
-  sessionStorage.removeItem('ytc-access-token');
-  sessionStorage.removeItem('ytc-user');
-  // localStorage.removeItem('ytc-access-token'); // Remove from local storage
-  // localStorage.removeItem('ytc-user'); 
+  // sessionStorage.removeItem('ytc-access-token');
+  // sessionStorage.removeItem('ytc-user');
+  localStorage.removeItem('ytc-access-token'); // Remove from local storage
+  localStorage.removeItem('ytc-user'); 
 };
